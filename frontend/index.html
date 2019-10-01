@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: rgb(255, 166, 0);
+    }
+
+    .container {
+      padding: 30px;
+      background-color: rgb(23, 39, 68);
+      border-radius: 8px;
+      color: rgb(184, 199, 228);
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    .inputs {
+      text-align: center;
+    }
+
+    .inputs>* {
+      margin-right: 4px;
+    }
+
+    button,
+    input {
+      padding: 4px 10px;
+      border-radius: 30px;
+    }
+
+    p {
+      height: 200px;
+      width: 400px;
+    }
+  </style>
+
+  <title>Graphql</title>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Fetch data from GraphQl API</h1>
+    <div class="inputs">
+      <input type="checkbox" id="all-persons">
+      <label for="all-persons">All People</label>
+      <input type="number" id="number" value="1">
+      <button id="fetch">Get the person!</button>
+    </div>
+    <p id="result">waiting...</p>
+  </div>
+
+  <script>
+    const btn = document.getElementById('fetch');
+    const number = document.getElementById('number');
+    const checkbox = document.getElementById('all-persons');
+    const result = document.getElementById('result');
+
+    btn.addEventListener('click', () => {
+
+      const query = !checkbox.checked ? `
+      query {
+        person(id: ${number.value}) {
+          name
+          gender
+        }
+      }
+      ` : `
+        query {
+          allPeople {
+            name
+            hometown
+          }
+        }
+    `;
+
+      const url = "http://localhost:4000/graphql/";
+      const opts = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query })
+      };
+
+      fetch(url, opts)
+        .then(res => res.json())
+        .then(res => result.textContent = JSON.stringify(res))
+        .catch(res => console.error(res));
+    })
+  </script>
+</body>
+
+</html>
