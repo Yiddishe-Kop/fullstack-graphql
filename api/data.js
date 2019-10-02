@@ -29,17 +29,17 @@ const data = [
   },
   {
     id: 5,
-    name: "Ruchi Neufeld",
-    gender: "female",
+    name: "Shaya Ulman",
+    gender: "male",
     birthYear: 1996,
-    hometown: "London"
+    hometown: "Antwerpen"
   },
   {
     id: 6,
-    name: "Ruchi Neufeld",
-    gender: "female",
-    birthYear: 1996,
-    hometown: "London"
+    name: "Bob the Builder",
+    gender: "male",
+    birthYear: -45,
+    hometown: "Babel"
   },
 ]
 
